@@ -1,0 +1,3 @@
+status=finish
+yuanAcc=0.97
+xianAcc=0.67
