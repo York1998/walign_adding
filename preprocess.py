@@ -1,6 +1,9 @@
 import torch
 from tqdm import tqdm
 
+"""
+	将数据集转化成邻接矩阵，但是在WAlign当中没用到
+"""
 def get_adj_list(edge_index, n=None):
 	# Convert edge list into adjacency list
 	if not n:

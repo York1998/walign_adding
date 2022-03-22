@@ -11,14 +11,14 @@ import torch.nn.functional as F
 import torch_geometric
 from graphmodel import WDiscriminator, LGCN, GCNNet, GATNet, transformation, ReconDNN, notrans
 from train import train_wgan_adv_pseudo_self, check_align, train_supervise_align, pred_anchor_links_from_embd, train_feature_recon
-from preprocess import get_adj_list
+#from preprocess import get_adj_list
 import time
 
 """ 参数设置 """
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--setup', type=int, default=2)
-parser.add_argument('--dataset', type=str, default='ppi')
+parser.add_argument('--dataset', type=str, default='douban')
 parser.add_argument('--use_config', type=bool, default=True)
 parser.add_argument('--noise', type=float, default=0.0)
 parser.add_argument('--transformer', type=int, default=1)
@@ -66,6 +66,15 @@ noise_level = args.noise
 
 
 if dataset_name in ['douban']:
+	"""
+		douban数据集，返回的一共6个。
+			a1 : x['online_edge_label'][0][1], 
+			f1 : x['online_node_label'], 
+			a2 : x['offline_edge_label'][0][1], 
+			f2 : x['offline_node_label'],
+			ground_truth : x['ground_truth'].T,
+			prior : x['H']
+	"""
 	a1, f1, a2, f2, ground_truth, prior = load(dataset_name, noise_level=noise_level)
 	feature_size = f1.shape[1]
 	ns = [a1.shape[0], a2.shape[0]]

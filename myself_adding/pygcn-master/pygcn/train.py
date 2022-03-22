@@ -106,5 +106,11 @@ for epoch in range(args.epochs):
 print("Optimization Finished!")
 print("Total time elapsed: {:.4f}s".format(time.time() - t_total))
 
+"""from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter("logs")
+for i in range(5):
+    writer.add_graph(model,,verbose=False)
+writer.flush()
+writer.close()"""
 # Testing
 test()

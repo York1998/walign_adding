@@ -25,7 +25,6 @@ class LGCN(torch.nn.Module):
 
 """
 	传统GAT模型
-	
 """
 class GATNet(torch.nn.Module):
 	def __init__(self, input_size, output_size, hidden_size=512, heads=1):
@@ -61,7 +60,9 @@ class GCNNet(torch.nn.Module):
 		x = F.dropout(x, p=0.5, training=self.training)
 		x = self.conv2(x, edge_index)
 		return x
-	
+"""
+	Wassertien distance 计算
+"""
 class WDiscriminator(torch.nn.Module):
 	def __init__(self, hidden_size, hidden_size2=512):
 		super(WDiscriminator, self).__init__()

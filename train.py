@@ -269,4 +269,3 @@ def check_align_greedy(embds, ground_truth, k=5, mode='cosine', prior=None, prio
 	ak /= len(g_list)
 	print('H@1 %.2f%% H@5 %.2f%%' % (a1*100, ak*100))
 	return a1, ak
-	
