@@ -76,10 +76,14 @@ if dataset_name in ['douban']:
 			prior : x['H']
 	"""
 	a1, f1, a2, f2, ground_truth, prior = load(dataset_name, noise_level=noise_level)
-	feature_size = f1.shape[1]
-	ns = [a1.shape[0], a2.shape[0]]
-	edge_1 = torch.LongTensor(np.array(a1.nonzero()))
-	edge_2 = torch.LongTensor(np.array(a2.nonzero())) 
+	feature_size = f1.shape[1] # 类型：int，值为538
+
+	ns = [a1.shape[0], a2.shape[0]] # 类型：<class 'list'>，值为：[3906, 1118]
+
+	edge_1 = torch.LongTensor(np.array(a1.nonzero())) # torch.Size([2, 11502]
+	edge_2 = torch.LongTensor(np.array(a2.nonzero())) # torch.Size([2, 3022])
+
+	#ground_truth 代表真实的对齐节点对。
 	ground_truth = torch.tensor(np.array(ground_truth, dtype=int)) - 1  # Original index start from 1
 	features = [torch.FloatTensor(f1.todense()), torch.FloatTensor(f2.todense())]
 	edges = [edge_1, edge_2]
