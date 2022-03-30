@@ -11,12 +11,15 @@ def glorot(tensor):
 
 
 """
-	作者自己家的LGCN模型，在GCN上面的改动主要是加了k
+	作者自己家的LGCN模型，在GCN上面的改动如文章所示，去掉了
 """
 class LGCN(torch.nn.Module):
 	def __init__(self, input_size, output_size, hidden_size=512, K=8):
 		super(LGCN, self).__init__()
+		" 定义一个卷积层 "
 		self.conv1 = CombUnweighted(K=K)
+		" 下面这个是定义类似于是全连接层" \
+		" y = xA^T + b "
 		self.linear = torch.nn.Linear(input_size * (K + 1), output_size)
 	def forward(self, feature, edge_index):
 		x = self.conv1(feature, edge_index)

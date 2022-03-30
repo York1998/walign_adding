@@ -2,6 +2,9 @@ from __future__ import division # python2导入精确除法，例如1/3=0，导�
 from __future__ import print_function # 将print从语言语法中移除，让你可以使用函数的形式
 # __future__包是把下一个新版本的特性导入到当前版本，导入python未来支持的语言特征
 
+import sys
+sys.path.append("..")
+
 import time
 import argparse # 命令行解析的标准模块，可以让我们直接在命令行中就可以向程序中传入参数并让程序运行
 import numpy as np
@@ -10,16 +13,19 @@ import torch
 import torch.nn.functional as F # 搭框架用
 import torch.optim as optim # 优化器
 
+
+
 from pygcn.utils import load_data, accuracy
 from pygcn.models import GCN
 
 # 训练设置
-	# argparse 模块可以让人轻松编写用户友好的命令行接口。程序定义它需要的
-	# 参数，然后 argparse 将弄清如何从 sys.argv 解析出那些参数。
-	# 说白了这个就是自己写一些在命令行的输入的特殊指令完成向程序传入参数并运行。
-	# 这里能达到的效果是在命令行启动程序会按照设置的默认参数运行程序，
-	# 如果需要更改初始化参数则可以通过命令行语句进行修改。
+# argparse 模块可以让人轻松编写用户友好的命令行接口。程序定义它需要的
+# 参数，然后 argparse 将弄清如何从 sys.argv 解析出那些参数。
+# 说白了这个就是自己写一些在命令行的输入的特殊指令完成向程序传入参数并运行。
+# 这里能达到的效果是在命令行启动程序会按照设置的默认参数运行程序，
+# 如果需要更改初始化参数则可以通过命令行语句进行修改。
 parser = argparse.ArgumentParser()
+
     # 使用argparse的第一步是创建一个ArgumentParser对象。
 	# ArgumentParser对象包含将命令行解析成Python数据类型所需的全部信息。
 parser.add_argument('--no-cuda', action='store_true', default=False,

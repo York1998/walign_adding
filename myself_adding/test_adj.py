@@ -51,16 +51,20 @@ ns = [a1.shape[0], a2.shape[0]]
 
 #print(type(ns), ns)
 edge_1 = torch.LongTensor(np.array(a1.nonzero()))
-print("a1的类型为：{}".format(type(a1)))
-print("edge_1为：{}; edge_1的大小为:{}".format(edge_1,edge_1.shape))
+#print("a1的类型为：{}".format(type(a1)))
+# print("edge_1为：{}; edge_1的大小为:{}".format(edge_1,edge_1.shape))
 edge_2 = torch.LongTensor(np.array(a2.nonzero()))
-print("edge_2为：{}; edge_2的大小为:{}".format(edge_2,edge_2.shape))
+# print("edge_2为：{}; edge_2的大小为:{}".format(edge_2,edge_2.shape))
 
 ground_truth = torch.tensor(np.array(ground_truth, dtype=int)) - 1  # Original index start from 1
-print(ground_truth,ground_truth.shape)
+#print(ground_truth,ground_truth.shape)
 features = [torch.FloatTensor(f1.todense()), torch.FloatTensor(f2.todense())]
-print("features 为{}，features的类型为".format(features))
+#print("f1中非零元素{},非零元素的个数为：{}".format(np.flatnonzero(f1.todense()),len(f1.todense())))
+#print("f2中非零元素{},非零元素的个数为：{}".format(np.flatnonzero(f2.todense()),len(f2.todense())))
+#print(torch.FloatTensor(f1.todense()))
+#print("features 为{}，features的类型为{},,,,,,,,,{}".format(features,len(features),len(features[0])))
 edges = [edge_1, edge_2]
+# print("edges为：{}，edges的形状为：{}".format(edges,len(edges[0])))
 prior = torch.FloatTensor(prior)
 prior_rate = args.prior_rate
 
@@ -70,3 +74,31 @@ prior_rate = args.prior_rate
 #print("f2 是 {},f2的类型为{}".format(f2,type(f2)))
 #print("prior 是 {},prior的类型为{}".format(prior,type(prior)))
 #print("prior 是 {},prior的类型为{}".format(prior,type(prior)))
+
+##########################################################
+
+t = ground_truth.size()
+
+print(t)
+print(ground_truth)
+print(type(ground_truth))
+
+g_map = {}
+
+for i in range(ground_truth.size(1)):
+	g_map[ground_truth[1, i].item()] = ground_truth[0, i].item()
+	#print(ground_truth[0, i].item())
+#for i in g_map.items():
+#	print(i)
+
+#print(type(g_map))
+#print(g_map)
+g_list = list(g_map.keys())
+#print(g_list)
+
+embd0, embd1 = features
+
+cossim = torch.zeros(embd1.size(0), embd0.size(0))
+print(cossim)
+print(cossim.shape)
+print(embd1[i:i+1].expand(embd0.size(0), embd1.size(1)))

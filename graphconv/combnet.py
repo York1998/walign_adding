@@ -3,6 +3,10 @@ import torch.nn.functional as F
 import torch_geometric
 from torch_geometric.nn.conv import MessagePassing, GCNConv
 
+"""
+    
+    
+"""
 class CombUnweighted(MessagePassing):
     def __init__(self, K=1, cached=False, bias=True,
                  **kwargs):
@@ -11,7 +15,6 @@ class CombUnweighted(MessagePassing):
     def forward(self, x, edge_index, edge_weight=None):
         edge_index, norm = GCNConv.norm(edge_index, x.size(0), edge_weight,
                                         dtype=x.dtype)
-
         xs = [x]
         for k in range(self.K):
             xs.append(self.propagate(edge_index, x=xs[-1], norm=norm))
